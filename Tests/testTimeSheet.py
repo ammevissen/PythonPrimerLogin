@@ -8,7 +8,7 @@ import time
 import unittest
 import HtmlTestRunner
 
-from PythonPrimerLogin.Locators.locators import Locator as loc
+#from PythonPrimerLogin.Locators.locators import Locator as loc
 from PythonPrimerLogin.Pages.login import LoginPage
 from PythonPrimerLogin.Pages.timesheetHome import TimesheetHome
 from PythonPrimerLogin.Pages.timesheet import Timesheet 
@@ -32,8 +32,8 @@ class TimesheetTests(unittest.TestCase):
      def tearDownClass(cls) -> None:
           time.sleep(2)
           #Close browser
-          cls.driver.close()
-          cls.driver.quit()
+          #cls.driver.close()
+          #cls.driver.quit()
           print("Test Complete")
 
      def test_submit_timesheet(self):

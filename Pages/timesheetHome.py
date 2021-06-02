@@ -4,9 +4,11 @@ class TimesheetHome():
     def __init__(self, driver):
         self.driver=driver
 
-        #Get locators:
-        self.currentTimesheet_xpath=loc.currentTimesheet_xpath
+        #Get locators by class name:
         self.profile_class_name=loc.profile_class_name
+
+        #Get locators by xpath:
+        self.currentTimesheet_xpath=loc.currentTimesheet_xpath
         self.logoutButton_xpath=loc.logoutButton_xpath
 
     def switchToTimeCard(self):
