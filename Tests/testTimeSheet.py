@@ -1,13 +1,14 @@
 import sys
 import os
-sys.path.append(os.path.join(os.path.dirname(__file__), "...", "..."))
+sys.path.append(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 import time
-from Locators.locators import Locator as loc
-
-
+from PythonPrimerLogin.Locators.locators import Locator as loc
+from PythonPrimerLogin.Pages.login import LoginPage
+from PythonPrimerLogin.Pages.timesheetHome import TimesheetHome
+from PythonPrimerLogin.Pages.timesheet import Timesheet 
 
 #getting login credentials  
 f = open("C:/Users/ammev/Desktop/Udemy Python Selenium/PythonPrimerLogin/LoginInfo.txt", "r")
@@ -32,50 +33,58 @@ driver.get("https://rev2.force.com/revature/s/login/?ec=302&startURL=%2Frevature
 #time.sleep(2)
 
 #Login:
-driver.find_element_by_id(loc.username_id).clear()
-driver.find_element_by_id(loc.username_id).send_keys(userName)
+login=LoginPage(driver)
+login.login()
 
+# driver.find_element_by_id(loc.username_id).clear()
+# driver.find_element_by_id(loc.username_id).send_keys(userName)
 
-driver.find_element_by_id(loc.password_id).clear()
-driver.find_element_by_id(loc.password_id).send_keys(password)
+# driver.find_element_by_id(loc.password_id).clear()
+# driver.find_element_by_id(loc.password_id).send_keys(password)
 
 time.sleep(2)
 #Enter Time: 
-driver.find_element_by_xpath(loc.loginButton_xpath).click()
+login.click_login()
+#driver.find_element_by_xpath(loc.loginButton_xpath).click()
 
 time.sleep(2)
 
 #navigate to TimeSheet:
-driver.find_element_by_xpath("//button[contains(text(),'Open Current Timesheet')]").click()
-
+#driver.find_element_by_xpath("//button[contains(text(),'Open Current Timesheet')]").click()
+#driver.find_element_by_xpath(loc.currentTimesheet_xpath).click()
+timeHome=TimesheetHome(driver)
+timeHome.switchToTimeCard()
 time.sleep(2)
 
 #fill in time (for a standard week):
 #monday:
-LocatorM= "80:188;a" #"86:216;a"
-LocatorT= "92:188;a" #"92:216;a"
-LocatorW= "104:188;a" #"110:216;a"
-LocatorR= "116:188;a" #"122:216;a"
-LocatorF= "128:188;a" #"134:216;a"
+timesheetPage=Timesheet(driver)
+timesheetPage.enterTime()
 
-driver.find_element_by_id(LocatorM).clear()  
-driver.find_element_by_id(LocatorM).send_keys("8")
+# LocatorM= "80:188;a" #"86:216;a"
+# LocatorT= "92:188;a" #"92:216;a"
+# LocatorW= "104:188;a" #"110:216;a"
+# LocatorR= "116:188;a" #"122:216;a"
+# LocatorF= "128:188;a" #"134:216;a"
 
-#Tuesday:
-driver.find_element_by_id(LocatorT).clear()
-driver.find_element_by_id(LocatorT).send_keys("8")
+# driver.find_element_by_id(LocatorM).clear()  
+# driver.find_element_by_id(LocatorM).send_keys("8")
 
-#Wednesday:
-driver.find_element_by_id(LocatorW).clear()
-driver.find_element_by_id(LocatorW).send_keys("8")
+# #Tuesday:
+# driver.find_element_by_id(LocatorT).clear()
+# driver.find_element_by_id(LocatorT).send_keys("8")
 
-#Thursday:
-driver.find_element_by_id(LocatorR).clear()
-driver.find_element_by_id(LocatorR).send_keys("8")
+# #Wednesday:
+# driver.find_element_by_id(LocatorW).clear()
+# driver.find_element_by_id(LocatorW).send_keys("8")
 
-#Friday:
-driver.find_element_by_id(LocatorF).clear()
-driver.find_element_by_id(LocatorF).send_keys("8")
+# #Thursday:
+# driver.find_element_by_id(LocatorR).clear()
+# driver.find_element_by_id(LocatorR).send_keys("8")
+
+# #Friday:
+# driver.find_element_by_id(LocatorF).clear()
+# driver.find_element_by_id(LocatorF).send_keys("8")
 
 
 #Comments:
@@ -110,12 +119,14 @@ driver.find_element_by_id(LocatorF).send_keys("8")
 
 time.sleep(2)
 #Submit:
-driver.find_element_by_xpath("//button[contains(text(),'Submit')]").click()
+#driver.find_element_by_xpath("//button[contains(text(),'Submit')]").click()
+timesheetPage.submitTime()
 
 time.sleep(2)
 #Logout
-driver.find_element_by_class_name("profileName").click()
-driver.find_element_by_xpath("//a[contains(text(),'Logout')]").click()
+timeHome.logout()
+# driver.find_element_by_class_name("profileName").click()
+# driver.find_element_by_xpath("//a[contains(text(),'Logout')]").click()
 
 
 time.sleep(2)
